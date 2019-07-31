@@ -48,10 +48,16 @@ const App = {
   },
 
   renameStar: async function() {
-    const { changeStarName } = this.meta.methods;
     const newStarOwner = document.getElementById('changeStarName').value;
-    await changeStarName(newStarOwner).send({from: this.account});
-    this.setStatus('Rename star function has completed');
+
+    if(newStarOwner.trim()) {
+      const { changeStarName } = this.meta.methods;
+      await changeStarName(newStarOwner).send({from: this.account});
+      document.getElementById('changeStarName').value = "";
+      this.setStatus('Rename star function has completed');
+    } else {
+      this.setStatus('Please provide a new name for the star!');
+    }
   },
 
   setStatus: function(message) {
