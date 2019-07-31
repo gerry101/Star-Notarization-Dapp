@@ -8,6 +8,9 @@
       display: block;
       margin-bottom: 12px;
     }
+    button {
+      display: block;
+    }
   </style>
   <body>
     <h1>Star Notarization</h1>
@@ -19,8 +22,6 @@
     <button onclick="App.getStarOwner()">Get Star Owner</button>
     <p id="starOwner"></p>
 
-    <button onclick="App.claimStar()">Claim Star</button>
-
     <button onclick="App.renameStar()">Rename Star</button>
 
     <label for="changeStarName"></label>
@@ -29,6 +30,8 @@
       id="changeStarName"
       placeholder="New Star Name"
     />
+
+    <button onclick="App.claimStar()">Claim Star</button>
 
     <p id="status"></p>
     <p><strong>Hint:</strong> open the browser developer console to view any errors and warnings.</p>
