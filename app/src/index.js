@@ -43,9 +43,15 @@ const App = {
 
   claimStar: async function() {
     const { claimStar } = this.meta.methods;
-    const newStarOwner = document.getElementById('changeStarName').value;
-    await claimStar(newStarOwner).send({from: this.account});
+    await claimStar().send({from: this.account});
     this.setStatus('Claim star function has completed');
+  },
+
+  renameStar: async function() {
+    const { changeStarName } = this.meta.methods;
+    const newStarOwner = document.getElementById('changeStarName').value;
+    await changeStarName(newStarOwner).send({from: this.account});
+    this.setStatus('Rename star function has completed');
   },
 
   setStatus: function(message) {
