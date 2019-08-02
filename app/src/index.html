@@ -1,35 +1,137 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>MetaCoin | Truffle Webpack Demo w/ Frontend</title>
+    <title>Star Notary Dapp</title>
   </head>
+  <link href="https://fonts.googleapis.com/css?family=Crimson+Pro&display=swap" rel="stylesheet">
   <style>
+      html, body {
+      height: 100%;
+    }
+
+    html {
+      display: table;
+      margin: auto;
+    }
+    body {
+      display: table-cell;
+      vertical-align: middle;
+      font-family: 'Crimson Pro', sans-serif;
+    }
     input {
-      display: block;
       margin-bottom: 12px;
+    }
+    input.blocker {
+      display: block;
+    }
+    input.nonblock {
+      margin-right: 0.5rem;
+    }
+    .textCenter {
+      text-align: center;
+    }
+    .bottomAlign {
+      margin-top: 3rem;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    .column {
+      float: left;
+      width: 50%;
+      padding: 10px;
+    }
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+    .wrapper {
+      text-align: center;
+    }
+    .wrapperR {
+      text-align: right;
+    }
+    .centerDiv {
+      display: inline-block;
     }
   </style>
   <body>
-    <h1>MetaCoin — Example Truffle Dapp</h1>
-    <p>You have <strong class="balance">loading...</strong> META</p>
+    <h1 class="textCenter">Star Notary Dapp</h1>
+    <h4 class="textCenter"><em>Onwing Stars on the Virtual Sky</em></h4>
 
-    <h1>Send MetaCoin</h1>
+    <div class="row">
 
-    <label for="amount">Amount:</label>
-    <input type="text" id="amount" placeholder="e.g. 95" />
+      <!-- Create a star token -->
+      <div class="column">
+          <h3 class="bottomAlign">Create Star Token</h3>
 
-    <label for="receiver">To address:</label>
-    <input
-      type="text"
-      id="receiver"
-      placeholder="e.g. 0x93e66d9baea28c17d9fc393b53e3fbdd76899dae"
-    />
+          <label for="starTokenName">Star Name:</label>
+          <input 
+            class="blocker"
+            type="text" 
+            id="starTokenName" 
+            placeholder=" e.g. Plutonium" />
+      
+          <label for="creationTokenId">Token Id:</label>
+          <input
+            class="blocker"
+            type="text"
+            id="creationTokenId"
+            placeholder=" e.g. 123"
+          />
+      
+          <button onclick="">Create Star Token</button>
+      </div>
 
-    <button onclick="App.sendCoin()">Send MetaCoin</button>
+      <div class="column">
+          <div class="wrapperR">
+            <div class="centerDiv">
+                <h3 class="bottomAlign">Put up Star for Sale</h3>
 
-    <p id="status"></p>
+                <label for="sellingTokenId">Token Id:</label>
+                <input 
+                  class="blocker"
+                  type="text" 
+                  id="sellingTokenId" 
+                  placeholder=" e.g. 123" />
+            
+                <label for="sellingPrice">Selling Price:</label>
+                <input
+                  class="blocker"
+                  type="text"
+                  id="sellingPrice"
+                  placeholder=" e.g. 0.01 (ether)"
+                />
+            
+                <button onclick="">Put up for Sale</button>
+            </div>
+          </div>
+      </div>
+
+    </div>
+
+    <div class="wrapper">
+      <div class="centerDiv">
+          <h3 class="bottomAlign">Buy Star!</h3>
+
+          <label for="buyingTokenId">Token Id:</label>
+          <input 
+            class="nonblock"
+            type="text" 
+            id="buyingTokenId" 
+            placeholder=" e.g. 123" />
+      
+          <button onclick="">Buy!</button>
+      </div>
+    </div>
+
     <p>
-      <strong>Hint:</strong> open the browser developer console to view any
+      <strong>Status: </strong>
+      <span id="status">Dapp running as expected.</span> 
+    </p>
+    <p>
+      <strong>Hint: </strong>Open the browser developer console to view any
       errors and warnings.
     </p>
     <script src="index.js"></script>
