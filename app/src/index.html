@@ -54,13 +54,18 @@
     }
     .centerDiv {
       display: inline-block;
+      margin-right: 1rem;
+    }
+    p.spacer {
+      margin-top: 2rem;
     }
   </style>
   <body>
     <h1 class="textCenter">Star Notary Dapp</h1>
-    <h4 class="textCenter"><em>Onwing Stars on the Virtual Sky</em></h4>
+    <h4 class="textCenter"><em>Owning Stars on the Virtual Sky</em></h4>
 
     <div class="row">
+      <p class="textCenter spacer"><em><strong>Your Stars: </strong></em>Plutonium(1), Secd(23)</p>
 
       <!-- Create a star token -->
       <div class="column">
@@ -112,8 +117,23 @@
 
     </div>
 
-     <!-- Buy star token -->
+    
     <div class="wrapper">
+       <!-- Look up star token -->
+      <div class="centerDiv">
+          <h3 class="bottomAlign">Look up a Star!</h3>
+
+          <label for="buyingTokenId">Token Id:</label>
+          <input 
+            class="nonblock"
+            type="text" 
+            id="buyingTokenId" 
+            placeholder=" e.g. 123" />
+      
+          <button onclick="">Look up!</button>
+      </div>
+
+       <!-- Buy star token -->
       <div class="centerDiv">
           <h3 class="bottomAlign">Buy Star!</h3>
 
