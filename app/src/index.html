@@ -81,9 +81,10 @@
             placeholder=" e.g. 123"
           />
       
-          <button onclick="">Create Star Token</button>
+          <button onclick="App.createStarToken()">Create Star Token</button>
       </div>
 
+      <!-- Put up star for sale -->
       <div class="column">
           <div class="wrapperR">
             <div class="centerDiv">
@@ -104,13 +105,14 @@
                   placeholder=" e.g. 0.01 (ether)"
                 />
             
-                <button onclick="">Put up for Sale</button>
+                <button onclick="App.putUpStarSale()">Put up for Sale</button>
             </div>
           </div>
       </div>
 
     </div>
 
+     <!-- Buy star token -->
     <div class="wrapper">
       <div class="centerDiv">
           <h3 class="bottomAlign">Buy Star!</h3>
@@ -122,7 +124,7 @@
             id="buyingTokenId" 
             placeholder=" e.g. 123" />
       
-          <button onclick="">Buy!</button>
+          <button onclick="App.buyStar()">Buy!</button>
       </div>
     </div>
 
