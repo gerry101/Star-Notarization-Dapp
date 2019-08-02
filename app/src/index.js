@@ -34,7 +34,7 @@ const App = {
       try {
         await createStar(starName, starTokenId).send({from: this.account});
       } catch(err) {
-        this.setStatus(err);
+        this.setStatus(err.message.split("Error:")[err.message.split("Error:").length - 1]);
       }
     } else {
       this.invalidInputsStatus();
@@ -47,10 +47,11 @@ const App = {
     const starSellingPrice = parseInt(document.getElementById('sellingPrice').value);
     if(starTokenId.trim()) {
       if(starSellingPrice && starSellingPrice > 0) {
+        const starSellingPriceWei = await this.web3.utils.toWei(starSellingPrice.toString(), "ether");
         try {
-          await putStarForSale(starTokenId, starSellingPrice).send({from: this.account});
+          await putStarForSale(starTokenId, starSellingPriceWei).send({from: this.account});
         } catch(err) {
-          this.setStatus(err);
+          this.setStatus(err.message.split("Error:")[err.message.split("Error:").length - 1]);
         }
       } else {
         this.setStatus("Kindly specify a valid selling price.");
@@ -61,15 +62,16 @@ const App = {
   },
 
   buyStar: async function() {
-    const { buyStar } = this.meta.methods;
+    const { buyStar, tokensOnSale } = this.meta.methods;
     const starTokenId = document.getElementById('buyingTokenId').value;
     if(starTokenId.trim()) {
       try {
         this.setStatus("Initiating transaction ...");
-        await buyStar(starTokenId).send({from: this.account});
+        const starSellingPriceWei = await tokensOnSale(starTokenId).call();
+        await buyStar(starTokenId).send({from: this.account, value: starSellingPriceWei});
         this.setStatus("Transaction complete.");
       } catch(err) {
-        this.setStatus(err);
+        this.setStatus(err.message.split("Error:")[err.message.split("Error:").length - 1]);
       }
     } else {
       this.invalidInputsStatus();

@@ -50,7 +50,7 @@ it("Ensures that the buyer is correctly billed for a star token", async () => {
     await instance.createStar(starName, starTokenId, {from: owner});
     await instance.putStarForSale(starTokenId, starTokenPrice, {from: owner});
     const buyingUser = accounts[1];
-    const buyingUserBalance = await web3.utils.toWei(".05", "ether");
+    const buyingUserBalance = await web3.utils.toWei(".01", "ether");
     const buyingUserInitialBalance = await web3.eth.getBalance(buyingUser);
     await instance.buyStar(starTokenId, {from: buyingUser, value: buyingUserBalance, gasPrice: 0});
     const buyingUserFinalBalance = await web3.eth.getBalance(buyingUser);
