@@ -78,6 +78,21 @@ const App = {
     }
   },
 
+  lookupStar: async function() {
+    const { lookupStarInfo } = this.meta.methods;
+    const starTokenId = document.getElementById('lookupTokenId').value;
+    if(starTokenId.trim()) {
+      try {
+        const starName = await lookupStarInfo(starTokenId).call();
+        this.setStatus('The star you looked up is named ' + starName);
+      } catch(err) {
+        this.setStatus(err.message.split("Error:")[err.message.split("Error:").length - 1]);
+      }
+    } else {
+      this.invalidInputsStatus();
+    }
+  },
+
   invalidInputsStatus: function() {
     const status = document.getElementById("status");
     status.innerHTML = "Kindly specify valid input values in the input fields.";

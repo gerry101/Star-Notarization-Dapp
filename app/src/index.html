@@ -54,14 +54,17 @@
     }
     .centerDiv {
       display: inline-block;
+      margin-right: 1rem;
+    }
+    p.spacer {
+      margin-top: 2rem;
     }
   </style>
   <body>
     <h1 class="textCenter">Star Notary Dapp</h1>
-    <h4 class="textCenter"><em>Onwing Stars on the Virtual Sky</em></h4>
+    <h4 class="textCenter"><em>Owning Stars on the Virtual Sky</em></h4>
 
     <div class="row">
-
       <!-- Create a star token -->
       <div class="column">
           <h3 class="bottomAlign">Create Star Token</h3>
@@ -112,8 +115,23 @@
 
     </div>
 
-     <!-- Buy star token -->
+    
     <div class="wrapper">
+       <!-- Look up star token -->
+      <div class="centerDiv">
+          <h3 class="bottomAlign">Look up a Star!</h3>
+
+          <label for="lookupTokenId">Token Id:</label>
+          <input 
+            class="nonblock"
+            type="text" 
+            id="lookupTokenId" 
+            placeholder=" e.g. 123" />
+      
+          <button onclick="App.lookupStar()">Look up!</button>
+      </div>
+
+       <!-- Buy star token -->
       <div class="centerDiv">
           <h3 class="bottomAlign">Buy Star!</h3>
 

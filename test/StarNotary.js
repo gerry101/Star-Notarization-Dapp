@@ -8,6 +8,20 @@ contract("StarNotary", acc => {
     owner = accounts[0];
 });
 
+it("Correctly sets the name of the token", async () => {
+    const instance = await StarNotary.deployed();
+    const tokenName = "Nostary";
+    const retrievedTokenName = await instance.name();
+    assert.equal(tokenName, retrievedTokenName);
+});
+
+it("Correctly sets the symbol of the token", async () => {
+    const instance = await StarNotary.deployed();
+    const tokenSymbol = "NST";
+    const retrievedTokenSymbol = await instance.symbol();
+    assert.equal(tokenSymbol, retrievedTokenSymbol);
+});
+
 it("Creates a star successfuly", async () => {
     const instance = await StarNotary.deployed();
     const starName = "Cool star name!";
@@ -72,4 +86,37 @@ it("Ensures that the seller is correctly debited for selling the star token", as
     const sellerFinalBalance = await web3.eth.getBalance(owner);
     const sellerConfirmationBalance = Number(sellerFinalBalance) - Number(starTokenPrice);
     assert.equal(sellerInitialBalance, sellerConfirmationBalance);
+});
+
+it("Tests that a star's name can be correctly retrieved using 'lookupStarInfo'", async () => {
+    const instance = await StarNotary.deployed();
+    const starName = "Cool star name!";
+    const starTokenId = "6";
+    await instance.createStar(starName, starTokenId, {from: owner});
+    const starTokenName = await instance.lookupStarInfo(starTokenId, {from: owner});
+    assert.equal(starName, starTokenName);
+});
+
+it("Tests that stars can be exchanged using 'exchangeStars'", async () => {
+    const instance = await StarNotary.deployed();
+    const starName = "Cool star name!";
+    const starTokenId = "7";
+    await instance.createStar(starName, starTokenId, {from: owner});
+    const starName_2 = "Cool star name 2!";
+    const starTokenId_2 = "8";
+    await instance.createStar(starName_2, starTokenId_2, {from: accounts[1]});
+    await instance.approve(accounts[1], starTokenId, {from: owner});
+    await instance.exchangeStars(owner, starTokenId, accounts[1], starTokenId_2, {from: accounts[1]});
+    const starOwnerAddress = await instance.ownerOf(starTokenId);
+    assert.equal(accounts[1], starOwnerAddress);
+});
+
+it("Tests that a star can be tranfered using 'transferStar'", async () => {
+    const instance = await StarNotary.deployed();
+    const starName = "Cool star name!";
+    const starTokenId = "9";
+    await instance.createStar(starName, starTokenId, {from: owner});
+    await instance.transferStar(accounts[2], starTokenId, {from: owner});
+    const starOwnerAddress = await instance.ownerOf(starTokenId);
+    assert.equal(accounts[2], starOwnerAddress);
 });
