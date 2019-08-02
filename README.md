@@ -5,7 +5,6 @@
 #### View transaction on Rinkeby Etherscan [here.](https://rinkeby.etherscan.io/tx/0x8248304affc7c93b692f347b952d0b513e64990d4044dbf238e96769a4bd2d65)
 
 This project is a simple dapp that allows users to notarize and own stars on the Ethereum blockchain.
-By building this project, I intend to get a better understanding and appreciation for decentralised and distributed technologies.
 
 Note: This project is built using truffle (specifically the truffle webpack box), thus it should be used to test and run the project.
 
