@@ -65,4 +65,10 @@ contract StarNotary is ERC721Full {
         transferFrom(_firstExchangerAddress, _secondExchangerAddress, _firstExchangerTokenId);
         transferFrom(_secondExchangerAddress, _firstExchangerAddress, _secondExchangerTokenId);
     }
+
+    function transferStar(address _recipientAddress, uint256 _starTokenId) public {
+        require(_exists(_starTokenId) == true, "The token specified should exist");
+
+        _transferFrom(msg.sender, _recipientAddress, _starTokenId);
+    }
 }

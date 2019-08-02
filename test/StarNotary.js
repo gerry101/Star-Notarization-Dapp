@@ -110,3 +110,13 @@ it("Tests that stars can be exchanged using 'exchangeStars'", async () => {
     const starOwnerAddress = await instance.ownerOf(starTokenId);
     assert.equal(accounts[1], starOwnerAddress);
 });
+
+it("Tests that a star can be tranfered using 'transferStar'", async () => {
+    const instance = await StarNotary.deployed();
+    const starName = "Cool star name!";
+    const starTokenId = "9";
+    await instance.createStar(starName, starTokenId, {from: owner});
+    await instance.transferStar(accounts[2], starTokenId, {from: owner});
+    const starOwnerAddress = await instance.ownerOf(starTokenId);
+    assert.equal(accounts[2], starOwnerAddress);
+});
