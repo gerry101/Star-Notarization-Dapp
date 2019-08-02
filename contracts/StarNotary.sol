@@ -11,8 +11,6 @@ contract StarNotary is ERC721 {
     mapping(uint256 => uint256) public tokensOnSale;
 
     function createStar(string memory _starName, uint256 _starTokenId) public {
-        require(bytes(_starName).length > 0, "A token name should be provided");
-
         Star memory newStar = Star(_starName);
 
         tokenIdToStarData[_starTokenId] = newStar;
@@ -42,7 +40,7 @@ contract StarNotary is ERC721 {
         require(msg.value >= starPrice, "You should have enough ether to purchase this token");
 
         starOwnerPayableAddress.transfer(starPrice);
-        transferFrom(starOwner, starOwnerIntent, _starTokenId);
+        _transferFrom(starOwner, starOwnerIntent, _starTokenId);
 
         if(msg.value > starPrice) {
             starOwnerIntentPayableAddress.transfer(msg.value - starPrice);
