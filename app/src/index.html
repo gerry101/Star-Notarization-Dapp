@@ -65,8 +65,6 @@
     <h4 class="textCenter"><em>Owning Stars on the Virtual Sky</em></h4>
 
     <div class="row">
-      <p class="textCenter spacer"><em><strong>Your Stars: </strong></em>Plutonium(1), Secd(23)</p>
-
       <!-- Create a star token -->
       <div class="column">
           <h3 class="bottomAlign">Create Star Token</h3>
@@ -123,14 +121,14 @@
       <div class="centerDiv">
           <h3 class="bottomAlign">Look up a Star!</h3>
 
-          <label for="buyingTokenId">Token Id:</label>
+          <label for="lookupTokenId">Token Id:</label>
           <input 
             class="nonblock"
             type="text" 
-            id="buyingTokenId" 
+            id="lookupTokenId" 
             placeholder=" e.g. 123" />
       
-          <button onclick="">Look up!</button>
+          <button onclick="App.lookupStar()">Look up!</button>
       </div>
 
        <!-- Buy star token -->

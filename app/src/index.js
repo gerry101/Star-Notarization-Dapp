@@ -80,10 +80,10 @@ const App = {
 
   lookupStar: async function() {
     const { lookupStarInfo } = this.meta.methods;
-    const starTokenId = document.getElementById('lookupTokenId');
+    const starTokenId = document.getElementById('lookupTokenId').value;
     if(starTokenId.trim()) {
       try {
-        const starName = await lookupStarInfo(starTokenId).send({from: this.account});
+        const starName = await lookupStarInfo(starTokenId).call();
         this.setStatus('The star you looked up is named ' + starName);
       } catch(err) {
         this.setStatus(err.message.split("Error:")[err.message.split("Error:").length - 1]);
