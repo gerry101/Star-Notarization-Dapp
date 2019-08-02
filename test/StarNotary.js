@@ -87,3 +87,12 @@ it("Ensures that the seller is correctly debited for selling the star token", as
     const sellerConfirmationBalance = Number(sellerFinalBalance) - Number(starTokenPrice);
     assert.equal(sellerInitialBalance, sellerConfirmationBalance);
 });
+
+it("Tests that a star's name can be correctly retrieved using 'lookupStarInfo'", async () => {
+    const instance = await StarNotary.deployed();
+    const starName = "Cool star name!";
+    const starTokenId = "6";
+    await instance.createStar(starName, starTokenId, {from: owner});
+    const starTokenName = await instance.lookupStarInfo(starTokenId, {from: owner});
+    assert.equal(starName, starTokenName)
+});
