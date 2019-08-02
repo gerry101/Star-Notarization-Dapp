@@ -1,5 +1,5 @@
 import Web3 from "web3";
-import starNotaryArtifact from "../../build/contracts/StarNotary.json";
+import starNotarizeArtifact from "../../build/contracts/StarNotarize.json";
 
 const App = {
   web3: null,
@@ -12,75 +12,52 @@ const App = {
     try {
       // get contract instance
       const networkId = await web3.eth.net.getId();
-      const deployedNetwork = starNotaryArtifact.networks[networkId];
+      const deployedNetwork = starNotarizeArtifact.networks[networkId];
       this.meta = new web3.eth.Contract(
-        starNotaryArtifact.abi,
+        starNotarizeArtifact.abi,
         deployedNetwork.address,
       );
 
       // get accounts
       const accounts = await web3.eth.getAccounts();
       this.account = accounts[0];
+
     } catch (error) {
       console.error("Could not connect to contract or chain.");
     }
   },
 
-  createStarToken: async function() {
-    const { createStar } = this.meta.methods;
-    const starName = document.getElementById('starTokenName').value;
-    const starTokenId = document.getElementById('creationTokenId').value;
-    if(starName.trim() && starTokenId.trim()) {
-      try {
-        await createStar(starName, starTokenId).send({from: this.account});
-      } catch(err) {
-        this.setStatus(err.message.split("Error:")[err.message.split("Error:").length - 1]);
-      }
-    } else {
-      this.invalidInputsStatus();
-    }
+  getStarName: async function() {
+    const { starName } = this.meta.methods;
+    const currentStarName = await starName().call();
+    const starNameParagraph = document.getElementById('starName');
+    starNameParagraph.innerHTML = currentStarName;
   },
 
-  putUpStarSale: async function() {
-    const { putStarForSale } = this.meta.methods;
-    const starTokenId = document.getElementById('sellingTokenId').value;
-    const starSellingPrice = parseInt(document.getElementById('sellingPrice').value);
-    if(starTokenId.trim()) {
-      if(starSellingPrice && starSellingPrice > 0) {
-        const starSellingPriceWei = await this.web3.utils.toWei(starSellingPrice.toString(), "ether");
-        try {
-          await putStarForSale(starTokenId, starSellingPriceWei).send({from: this.account});
-        } catch(err) {
-          this.setStatus(err.message.split("Error:")[err.message.split("Error:").length - 1]);
-        }
-      } else {
-        this.setStatus("Kindly specify a valid selling price.");
-      }
-    } else {
-      this.invalidInputsStatus();
-    }
+  getStarOwner: async function() {
+    const { starOwner } = this.meta.methods;
+    const currentStarOwner = await starOwner().call();
+    const starOwnerParagraph = document.getElementById('starOwner');
+    starOwnerParagraph.innerHTML = currentStarOwner;
   },
 
-  buyStar: async function() {
-    const { buyStar, tokensOnSale } = this.meta.methods;
-    const starTokenId = document.getElementById('buyingTokenId').value;
-    if(starTokenId.trim()) {
-      try {
-        this.setStatus("Initiating transaction ...");
-        const starSellingPriceWei = await tokensOnSale(starTokenId).call();
-        await buyStar(starTokenId).send({from: this.account, value: starSellingPriceWei});
-        this.setStatus("Transaction complete.");
-      } catch(err) {
-        this.setStatus(err.message.split("Error:")[err.message.split("Error:").length - 1]);
-      }
-    } else {
-      this.invalidInputsStatus();
-    }
+  claimStar: async function() {
+    const { claimStar } = this.meta.methods;
+    await claimStar().send({from: this.account});
+    this.setStatus('Claim star function has completed');
   },
 
-  invalidInputsStatus: function() {
-    const status = document.getElementById("status");
-    status.innerHTML = "Kindly specify valid input values in the input fields.";
+  renameStar: async function() {
+    const newStarOwner = document.getElementById('changeStarName').value;
+
+    if(newStarOwner.trim()) {
+      const { changeStarName } = this.meta.methods;
+      await changeStarName(newStarOwner).send({from: this.account});
+      document.getElementById('changeStarName').value = "";
+      this.setStatus('Rename star function has completed');
+    } else {
+      this.setStatus('Please provide a new name for the star!');
+    }
   },
 
   setStatus: function(message) {

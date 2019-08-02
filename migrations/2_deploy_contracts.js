@@ -1,5 +1,5 @@
-const StarNotary = artifacts.require("StarNotary");
+const StarNotarize = artifacts.require("StarNotarize");
 
 module.exports = function(deployer) {
-  deployer.deploy(StarNotary);
+  deployer.deploy(StarNotarize);
 };
