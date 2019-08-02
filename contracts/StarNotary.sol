@@ -1,14 +1,17 @@
 pragma solidity >=0.4.21 <0.6.0;
 
-import "../app/node_modules/openzeppelin-solidity/contracts/token/ERC721/ERC721.sol";
+import "../app/node_modules/openzeppelin-solidity/contracts/token/ERC721/ERC721Full.sol";
 
-contract StarNotary is ERC721 {
+contract StarNotary is ERC721Full {
     struct Star {
         string name;
     }
 
     mapping(uint256 => Star) public tokenIdToStarData;
     mapping(uint256 => uint256) public tokensOnSale;
+
+    constructor() ERC721Full("Nostary", "NST") public {
+    }
 
     function createStar(string memory _starName, uint256 _starTokenId) public {
         Star memory newStar = Star(_starName);
