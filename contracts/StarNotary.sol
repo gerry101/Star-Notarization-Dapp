@@ -51,4 +51,10 @@ contract StarNotary is ERC721Full {
 
         tokensOnSale[_starTokenId] = 0;
     }
+
+    function lookupStarInfo(uint256 _starTokenId) public view returns(string memory _starName) {
+        require(_exists(_starTokenId) == true, "The token specified should exist");
+        Star memory retrievedStar =  tokenIdToStarData[_starTokenId];
+        return retrievedStar.name;
+    }
 }
