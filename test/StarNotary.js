@@ -8,6 +8,20 @@ contract("StarNotary", acc => {
     owner = accounts[0];
 });
 
+it("Correctly sets the name of the token", async () => {
+    const instance = await StarNotary.deployed();
+    const tokenName = "Nostary";
+    const retrievedTokenName = await instance.name();
+    assert.equal(tokenName, retrievedTokenName);
+});
+
+it("Correctly sets the symbol of the token", async () => {
+    const instance = await StarNotary.deployed();
+    const tokenSymbol = "NST";
+    const retrievedTokenSymbol = await instance.symbol();
+    assert.equal(tokenSymbol, retrievedTokenSymbol);
+});
+
 it("Creates a star successfuly", async () => {
     const instance = await StarNotary.deployed();
     const starName = "Cool star name!";
