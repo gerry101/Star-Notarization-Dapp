@@ -94,5 +94,19 @@ it("Tests that a star's name can be correctly retrieved using 'lookupStarInfo'",
     const starTokenId = "6";
     await instance.createStar(starName, starTokenId, {from: owner});
     const starTokenName = await instance.lookupStarInfo(starTokenId, {from: owner});
-    assert.equal(starName, starTokenName)
+    assert.equal(starName, starTokenName);
+});
+
+it("Tests that stars can be exchanged using 'exchangeStars'", async () => {
+    const instance = await StarNotary.deployed();
+    const starName = "Cool star name!";
+    const starTokenId = "7";
+    await instance.createStar(starName, starTokenId, {from: owner});
+    const starName_2 = "Cool star name 2!";
+    const starTokenId_2 = "8";
+    await instance.createStar(starName_2, starTokenId_2, {from: accounts[1]});
+    await instance.approve(accounts[1], starTokenId, {from: owner});
+    await instance.exchangeStars(owner, starTokenId, accounts[1], starTokenId_2, {from: accounts[1]});
+    const starOwnerAddress = await instance.ownerOf(starTokenId);
+    assert.equal(accounts[1], starOwnerAddress);
 });
