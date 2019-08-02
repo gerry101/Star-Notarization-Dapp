@@ -1,40 +1,141 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Star Notarization Dapp</title>
+    <title>Star Notary Dapp</title>
   </head>
+  <link href="https://fonts.googleapis.com/css?family=Crimson+Pro&display=swap" rel="stylesheet">
   <style>
+      html, body {
+      height: 100%;
+    }
+
+    html {
+      display: table;
+      margin: auto;
+    }
+    body {
+      display: table-cell;
+      vertical-align: middle;
+      font-family: 'Crimson Pro', sans-serif;
+    }
     input {
-      display: block;
       margin-bottom: 12px;
     }
-    button {
+    input.blocker {
       display: block;
+    }
+    input.nonblock {
+      margin-right: 0.5rem;
+    }
+    .textCenter {
+      text-align: center;
+    }
+    .bottomAlign {
+      margin-top: 3rem;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    .column {
+      float: left;
+      width: 50%;
+      padding: 10px;
+    }
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+    .wrapper {
+      text-align: center;
+    }
+    .wrapperR {
+      text-align: right;
+    }
+    .centerDiv {
+      display: inline-block;
     }
   </style>
   <body>
-    <h1>Star Notarization</h1>
-    <p>Your only chance to own a star</p>
+    <h1 class="textCenter">Star Notary Dapp</h1>
+    <h4 class="textCenter"><em>Onwing Stars on the Virtual Sky</em></h4>
 
-    <button onclick="App.getStarName()">Get Star Name</button>
-    <p id="starName"></p>
+    <div class="row">
 
-    <button onclick="App.getStarOwner()">Get Star Owner</button>
-    <p id="starOwner"></p>
+      <!-- Create a star token -->
+      <div class="column">
+          <h3 class="bottomAlign">Create Star Token</h3>
 
-    <button onclick="App.renameStar()">Rename Star</button>
+          <label for="starTokenName">Star Name:</label>
+          <input 
+            class="blocker"
+            type="text" 
+            id="starTokenName" 
+            placeholder=" e.g. Plutonium" />
+      
+          <label for="creationTokenId">Token Id:</label>
+          <input
+            class="blocker"
+            type="text"
+            id="creationTokenId"
+            placeholder=" e.g. 123"
+          />
+      
+          <button onclick="App.createStarToken()">Create Star Token</button>
+      </div>
 
-    <label for="changeStarName"></label>
-    <input
-      type="text"
-      id="changeStarName"
-      placeholder="New Star Name"
-    />
+      <!-- Put up star for sale -->
+      <div class="column">
+          <div class="wrapperR">
+            <div class="centerDiv">
+                <h3 class="bottomAlign">Put up Star for Sale</h3>
 
-    <button onclick="App.claimStar()">Claim Star</button>
+                <label for="sellingTokenId">Token Id:</label>
+                <input 
+                  class="blocker"
+                  type="text" 
+                  id="sellingTokenId" 
+                  placeholder=" e.g. 123" />
+            
+                <label for="sellingPrice">Selling Price:</label>
+                <input
+                  class="blocker"
+                  type="text"
+                  id="sellingPrice"
+                  placeholder=" e.g. 0.01 (ether)"
+                />
+            
+                <button onclick="App.putUpStarSale()">Put up for Sale</button>
+            </div>
+          </div>
+      </div>
 
-    <p id="status"></p>
-    <p><strong>Hint:</strong> open the browser developer console to view any errors and warnings.</p>
+    </div>
+
+     <!-- Buy star token -->
+    <div class="wrapper">
+      <div class="centerDiv">
+          <h3 class="bottomAlign">Buy Star!</h3>
+
+          <label for="buyingTokenId">Token Id:</label>
+          <input 
+            class="nonblock"
+            type="text" 
+            id="buyingTokenId" 
+            placeholder=" e.g. 123" />
+      
+          <button onclick="App.buyStar()">Buy!</button>
+      </div>
+    </div>
+
+    <p>
+      <strong>Status: </strong>
+      <span id="status">Dapp running as expected.</span> 
+    </p>
+    <p>
+      <strong>Hint: </strong>Open the browser developer console to view any
+      errors and warnings.
+    </p>
     <script src="index.js"></script>
   </body>
 </html>
